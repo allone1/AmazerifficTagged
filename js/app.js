@@ -38,7 +38,57 @@ var main = function (toDoObjects) {
             } else if ($element.parent().is(":nth-child(3)")) {
                 // THIS IS THE TAGS TAB CODE
 				console.log("the tags tab was clicked");
-			
+				
+				var organizedByTag = [
+					{
+						"name": "shopping",
+						"toDos": ["Get groceries"]
+						
+					},
+					{
+						"name": "chores",
+						"toDos": ["Get groceries", "Take Gracie to the parK"]
+						
+					},
+					{
+						"name": "writing",
+						"toDos": ["Make us some new ToDos", "Finish writing this book"]
+						
+					},
+					{
+						"name": "work",
+						"toDos": ["Make us some new ToDos", "Prep for Monday's class", "Answer emails", "Finish writing this book"]
+						
+					},
+					{
+						"name": "peaching",
+						"toDos": ["Prep for Monday's class"]
+						
+					},
+					{
+						"name": "[pets",
+						"toDos": ["Take Gracie to the park"]
+						
+					}
+				];
+				
+				organizedByTag.forEach(function (tag) {
+					// add h3 element to hold the tagname
+					var $tagName = $("<h3>").text("tag.name"),
+						$content = $("<ul>");						
+					
+					// add ul and li elements to hold the toDo descriptions
+					tag.toDOs.forEach(function (description) {
+						var $li = $("<li>").text(description);
+						$content.append($li);						
+					});
+				
+					// append to the main content div				
+					$("main .content").append($tagName);
+					$("main .content").append($content);
+				
+				});
+					
 			} else if ($element.parent().is(":nth-child(4)")) {
                 // input a new to-do
                 $input = $("<input>"),
