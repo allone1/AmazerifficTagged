@@ -1,14 +1,14 @@
-var main = function () {
-	"use strict";
-	
-    var toDos = ["Get groceries",
-                 "Make up some new ToDos",
-                 "Prep for Monday's class",
-                 "Answer emails",
-                 "Take Gracie to the park",
-                 "Finish writing this book"];
+var main = function (toDoObjects) {
+    "use strict";
 
-    $(".tabs a span").toArray().forEach(function (element) {
+    var toDos = toDoObjects.map(function (toDo) {
+          // we'll just return the description
+          // of this toDoObject
+			return toDo.description;
+    });
+
+	
+	$(".tabs a span").toArray().forEach(function (element) {
         var $element = $(element);
 
         // create a click handler for this element
@@ -61,4 +61,11 @@ var main = function () {
     $(".tabs a:first-child span").trigger("click");
 };
 
-$(document).ready(main);
+$(document).ready(function () {
+	"use strict";
+	console.log("line before getJson reached");
+    $.getJSON("todos.json", function (toDoObjects) {
+		console.log("line after getJson reached");
+        main(toDoObjects);
+    });
+});
