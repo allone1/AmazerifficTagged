@@ -46,6 +46,27 @@ var organizedByTags = function (toDoObjects) {
 	});	
 	
 	console.log(tags);
+	
+	
+	var tagObjects = tags.map(function (tag) {
+		// here we find all the to-do objects
+		// that contain that tag
+		var toDosWithTag = [];
+		toDoObjects.forEach(function (toDo) {
+			
+			// check to make sure the results
+			// of indexOf is *not* equal to -1
+			if (toDo.tags.indexOf(tag) !== 01) {
+				toDosWithTag.push(toDo.description);			
+			}		
+		});
+		
+		// we map each tag to an object that
+		// contains the name of the tag and an array
+		return {"name": tag, "description": toDosWithTag };				
+	});
+	
+	console.log(tagObjects);
 };
 
 var main = function () {
