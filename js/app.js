@@ -4,11 +4,10 @@ var main = function (toDoObjects) {
     var toDos = toDoObjects.map(function (toDo) {
           // we'll just return the description
           // of this toDoObject
-			return toDo.description;
+          return toDo.description;
     });
 
-	
-	$(".tabs a span").toArray().forEach(function (element) {
+    $(".tabs a span").toArray().forEach(function (element) {
         var $element = $(element);
 
         // create a click handler for this element
@@ -23,26 +22,21 @@ var main = function (toDoObjects) {
             $("main .content").empty();
 
             if ($element.parent().is(":nth-child(1)")) {
-                // newest first, so we have to go through
-                // the array backwards
                 $content = $("<ul>");
                 for (i = toDos.length-1; i >= 0; i--) {
                     $content.append($("<li>").text(toDos[i]));
                 }
             } else if ($element.parent().is(":nth-child(2)")) {
-                // oldest first, so we go through the array forwards
                 $content = $("<ul>");
                 toDos.forEach(function (todo) {
                     $content.append($("<li>").text(todo));
                 });
+
             } else if ($element.parent().is(":nth-child(3)")) {
-                // THIS IS THE TAGS TAB CODE
-				console.log("the tags tab was clicked");
-				
                 var tags = [];
 
                 toDoObjects.forEach(function (toDo) {
-					toDo.tags.forEach(function (tag) {
+                    toDo.tags.forEach(function (tag) {
                         if (tags.indexOf(tag) === -1) {
                             tags.push(tag);
                         }
@@ -77,8 +71,8 @@ var main = function (toDoObjects) {
                     $("main .content").append($tagName);
                     $("main .content").append($content);
                 });
-					
-			} else if ($element.parent().is(":nth-child(4)")) {
+
+            } else if ($element.parent().is(":nth-child(4)")) {
                 var $input = $("<input>").addClass("description"),
                     $inputLabel = $("<p>").text("Description: "),
                     $tagInput = $("<input>").addClass("tags"),
@@ -118,7 +112,7 @@ var main = function (toDoObjects) {
 
 $(document).ready(function () {
 	"use strict";
-	$.getJSON("todos.json", function (toDoObjects) {
-		main(toDoObjects);
+    $.getJSON("todos.json", function (toDoObjects) {
+        main(toDoObjects);
     });
 });
