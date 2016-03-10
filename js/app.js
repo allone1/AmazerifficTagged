@@ -39,55 +39,44 @@ var main = function (toDoObjects) {
                 // THIS IS THE TAGS TAB CODE
 				console.log("the tags tab was clicked");
 				
-				var organizedByTag = [
-					{
-						"name": "shopping",
-						"toDos": ["Get groceries"]
-						
-					},
-					{
-						"name": "chores",
-						"toDos": ["Get groceries", "Take Gracie to the parK"]
-						
-					},
-					{
-						"name": "writing",
-						"toDos": ["Make us some new ToDos", "Finish writing this book"]
-						
-					},
-					{
-						"name": "work",
-						"toDos": ["Make us some new ToDos", "Prep for Monday's class", "Answer emails", "Finish writing this book"]
-						
-					},
-					{
-						"name": "peaching",
-						"toDos": ["Prep for Monday's class"]
-						
-					},
-					{
-						"name": "[pets",
-						"toDos": ["Take Gracie to the park"]
-						
-					}
-				];
-				
-				organizedByTag.forEach(function (tag) {
+                var tags = [];
+
+                toDoObjects.forEach(function (toDo) {
+					toDo.tags.forEach(function (tag) {
+                        if (tags.indexOf(tag) === -1) {
+                            tags.push(tag);
+                        }
+                    });
+                });
+                console.log(tags);
+
+                var tagObjects = tags.map(function (tag) {
+                    var toDosWithTag = [];
+
+                    toDoObjects.forEach(function (toDo) {
+                        if (toDo.tags.indexOf(tag) !== -1) {
+                            toDosWithTag.push(toDo.description);
+                        }
+                    });
+
+                    return { "name": tag, "toDos": toDosWithTag };
+                });
+
+                tagObjects.forEach(function (tag) {
 					// add h3 element to hold the tagname
-					var $tagName = $("<h3>").text("tag.name"),
-						$content = $("<ul>");						
-					
+                    var $tagName = $("<h3>").text(tag.name),
+                        $content = $("<ul>");
+
 					// add ul and li elements to hold the toDo descriptions
-					tag.toDOs.forEach(function (description) {
-						var $li = $("<li>").text(description);
-						$content.append($li);						
-					});
-				
-					// append to the main content div				
-					$("main .content").append($tagName);
-					$("main .content").append($content);
-				
-				});
+                    tag.toDos.forEach(function (description) {
+                        var $li = $("<li>").text(description);
+                        $content.append($li);
+                    });
+
+					// append to the main content div	
+                    $("main .content").append($tagName);
+                    $("main .content").append($content);
+                });
 					
 			} else if ($element.parent().is(":nth-child(4)")) {
                 // input a new to-do
@@ -117,9 +106,7 @@ var main = function (toDoObjects) {
 
 $(document).ready(function () {
 	"use strict";
-	console.log("line before getJson reached");
-    $.getJSON("todos.json", function (toDoObjects) {
-		console.log("line after getJson reached");
-        main(toDoObjects);
+	$.getJSON("todos.json", function (toDoObjects) {
+		main(toDoObjects);
     });
 });
